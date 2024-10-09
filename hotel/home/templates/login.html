@@ -1,0 +1,160 @@
+
+{%  block start %}
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-image: url('https://watermark.lovepik.com/photo/50095/8518.jpg_wh1200.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .login-container {
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+        overflow: hidden;
+        width: 310px;
+        max-width: 100%;
+        padding: 35px;
+        position: relative;
+        animation: rainbowBorder 10s linear infinite;
+    }
+
+    @keyframes rainbowBorder {
+    0% {
+        border: 3px solid red;
+    }
+    14.28% {
+        border: 3px solid orange;
+    }
+    28.56% {
+        border: 3px solid yellow;
+    }
+    42.84% {
+        border: 3px solid green;
+    }
+    57.12% {
+        border: 3px solid blue;
+    }
+    71.4% {
+        border: 3px solid indigo;
+    }
+    85.68% {
+        border: 3px solid violet;
+    }
+    100% {
+        border: 3px solid red;
+    }
+    }
+
+    h2, label, .bottom-text {
+        color: white;
+        text-align: center;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 100px;
+        margin-bottom: 20px;
+    }
+
+    button {
+        width: 105%;
+        padding: 10px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 100px;
+        cursor: pointer;
+        font-size: 18px;
+    }
+
+    button:hover {
+        background-color: ;
+    }
+
+    .password-container {
+        text-align: center;
+        position: relative;
+    }
+
+    .show-password-icon {
+        position: absolute;
+        right: 0px;
+        top: 35%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        background-image: url('https://static.thenounproject.com/png/1689558-200.png'); /* Add your eye icon image */
+        width: 30px;
+        height: 30px;
+        background-size: cover;
+    }
+
+    .show-password-icon.visible {
+        background-image: url('https://cdn-icons-png.flaticon.com/512/65/65000.png'); /* Add your crossed eye icon image */
+    }
+
+    .captcha-container {
+        background-color:;
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 20px;
+        cursor: pointer;
+    }
+
+    #captcha {
+        font-size: 18px;
+        color: white;
+    }
+
+    .captcha-input {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 100px;
+    }
+
+    footer {
+        background-color:;
+        color: #fff;
+        text-align: center;
+        padding: 1em;
+    }
+</style>
+
+<div class="login-container">
+    <div class="login-box">
+        <h2>Login</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {% include "messages.html" %}
+            <label for="username">Username:</label>
+            <input type="text" id="username" placeholder="Enter User Name" name="username" required>
+            <label for="password">Password:</label>
+            <div class="password-container">
+                <input type="password" id="password" placeholder="Enter Password" name="password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <p id="error-message"></p>
+         <p class="bottom-text">Already have an account? <a href="signup.html">Signup</a></p>
+    </div>
+</div>
+<footer>
+    <p>© Copyright 2024 by BRODOAK. All Rights Reserved.</p>
+</footer>
+
+
+{% endblock %}

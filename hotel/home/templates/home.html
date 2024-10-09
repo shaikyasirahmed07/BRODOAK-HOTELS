@@ -1,0 +1,152 @@
+{% extends "base.html" %}
+
+{%  block start %}
+
+
+
+    <div class="container hotels-container">
+        <div class="row mt-2 justify-content-between">
+            <div class="col-md-8 text-white align-self-center mb-2 p-4 content-box">
+                <h1 class="font-weight-bold">BRODOAK HOTELS</h1>
+                <span class="font-weight-bold">
+                    Welcome to BRODOAK HOTELS, where luxury meets comfort and hospitality meets excellence. Nestled in the heart of GOA, our hotel offers a serene escape for travelers seeking both relaxation and adventure. With elegant accommodations, exquisite dining options, and impeccable service, we strive to create an unforgettable experience for every guest. Whether you're here for business or leisure, our dedicated staff is committed to ensuring your stay is nothing short of exceptional. Discover the perfect blend of sophistication and warmth.
+                </span>
+            </div>
+            <div class="col-md-4 text-white align-self-center mb-2 p-4 content-box">
+                <img src="https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="img-fluid float-md-right" alt="Hotel Image">
+            </div>
+        </div>
+    </div>
+
+<section class="search-container mb-5 pb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="row my-3">
+
+
+
+
+                </div>
+              <div class="row mt-2 justify-content-between">
+    <div class="filter-card">
+        <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#filterDropdown"
+            aria-expanded="false" aria-controls="filterDropdown">
+            Filter
+        </button>
+        <div class="collapse" id="filterDropdown">
+            <form action="#">
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <label for="mintopay" style="color: black;">Check in</label>
+                        <p>
+                            <input type="date" name="checkin" id="checkin" class="form-control">
+                        </p>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="maxtopay" style="color: black;">Check out</label>
+                        <p>
+                            <input type="date" name="checkout" id="checkout" class="form-control">
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <input type="submit" class="btn btn-primary btn-block" value="Limit">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+            </div>
+
+
+
+            <div class="col-lg-9  px-4 mb-5">
+                <form>
+                <div class="row mt-3">
+                    <div class="col-md-4">
+                    <div class="form-inline">
+                        <label class="" for="exampleFormControlSelect1">Sort by</label>
+                        <select class="form-control" name="sort_by" id="exampleFormControlSelect1">
+                            <option value="">Recommended</option>
+                            <option {% if sort_by == 'ASC' %} selected {%endif %} value="ASC">ASC</option>
+                            <option {% if sort_by == 'DSC' %} selected {%endif %} value="DSC">DSC</option>
+
+                        </select>
+                    </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-inline">
+                           <label class="" for="exampleFormControlSelect1">Amenities</label>
+                            <select name="amenities" class="form-control" >
+                            <option value="">Choose</option>
+                            {% for amenities_obj in amenities_objs %}
+                            <option {% if amenities_obj.amenity_name in amenities  %} selected {%endif%}value="{{amenities_obj.amenity_name}}">{{amenities_obj.amenity_name}}</option>
+                                {% endfor %}
+                        </select>
+                        </div>
+
+                    </div>
+                </div>
+                </form>
+
+                {% for hotels_obj in hotels_objs %}
+                <div class="row search-card-result">
+
+
+
+                    <div class="col-md-3">
+
+                    <a href="/hotel-detail/{{hotels_obj.uid}}">
+                        <img class="img-fluid" src="/media/{{hotels_obj.images.first.images}}" alt="Card image cap">
+
+                    </a></div>
+
+                   <div class="row">
+    <div class="col-md-5">
+        <h5>{{hotels_obj.hotel_name}}</h5>
+
+        <p>
+            {{hotels_obj.description|truncatechars:150}}
+        </p>
+        <p>
+            {%for amenitie in hotels_obj.amenities.all %}
+            <b>{{amenitie.amenity_name}}</b>,
+            {% endfor %}
+        </p>
+    </div>
+
+    <div class="col-md-5">
+        <!-- Add a button to trigger the dropdown -->
+        <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#hotelDetails{{hotels_obj.uid}}" aria-expanded="false" aria-controls="hotelDetails{{hotels_obj.uid}}">
+            View Details
+        </button>
+
+        <!-- Collapsible section for additional details -->
+        <div class="collapse" id="hotelDetails{{hotels_obj.uid}}">
+            <div class="border-left text-center more-offers">
+                <p>Place.com</p>
+                <p>₹{{hotels_obj.hotel_price}}</p>
+                <p>Room count</p>
+                <p>{{hotels_obj.room_count}}</p>
+                <div class="btn btn-success">View deal</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                {% endfor %}
+
+            </div>
+        </div>
+
+    </div>
+        </div>
+</section>
+
+{% endblock %}
